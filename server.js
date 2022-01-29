@@ -28,6 +28,8 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello MCAP" });
 });
 
+require("./app/routes/owner.routes")(app);
+
 const PORT = process.env.PORT || 2020;
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
