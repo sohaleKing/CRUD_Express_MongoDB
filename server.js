@@ -10,6 +10,20 @@ app.use(cors(corsOpt));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const db = require("./app/models");
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("db connected!");
+  })
+  .catch((err) => {
+    console.log(err);
+    process.exit();
+  });
+
 app.get("/", (req, res) => {
   res.json({ message: "Hello MCAP" });
 });
