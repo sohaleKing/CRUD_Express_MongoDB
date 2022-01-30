@@ -7,19 +7,19 @@ const getAge = (birthDate) =>
 
 // Create
 exports.create = (req, res) => {
+  const item = req.body.root;
   // Validate request
-  if (!req.body.address) {
+  if (!item.address) {
     res.status(400).send({ message: "address can not be empty!" });
     return;
   }
-
   // Create owner
   const owner = new Owner({
-    address: req.body.address,
-    name: req.body.name,
-    dob: req.body.dob,
-    age: getAge(req.body.dob),
-    coordinates: req.body.coordinates,
+    address: item.address,
+    name: item.name,
+    dob: item.dob,
+    age: getAge(item.dob),
+    coordinates: item.coordinates,
   });
 
   // Save in the database
