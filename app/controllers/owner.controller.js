@@ -1,6 +1,10 @@
 const db = require("../models");
 const Owner = db.ownerInfo;
 
+//methods - tools
+const getAge = (birthDate) =>
+  Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e10);
+
 // Create
 exports.create = (req, res) => {
   // Validate request
@@ -14,6 +18,7 @@ exports.create = (req, res) => {
     address: req.body.address,
     name: req.body.name,
     dob: req.body.dob,
+    age: getAge(req.body.dob),
     coordinates: req.body.coordinates,
   });
 

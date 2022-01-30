@@ -4,9 +4,10 @@ module.exports = (mongoose) => {
     mongoose.Schema(
       {
         address: String,
-        name: { firstName: String, lastName: String },
+        name: String,
         dob: Date,
-        coordinates: [Number],
+        coordinates: [Number, Number],
+        age: Number,
       },
       { timestamps: true }
     )
