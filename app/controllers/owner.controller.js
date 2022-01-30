@@ -2,6 +2,7 @@ const db = require("../models");
 const Owner = db.ownerInfo;
 const axios = require("axios");
 const API_KEY = "AIzaSyDbbcB3HL0S0h_nEcCdC97GEqkKv78iakU"; //put your own google API key please
+//when you found a good API_KEY uncomment the geolocation part!
 
 //methods - tools
 const getAge = (birthDate) =>

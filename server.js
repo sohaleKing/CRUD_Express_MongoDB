@@ -34,6 +34,9 @@ app.get("/", (req, res) => {
 require("./app/routes/owner.routes")(app);
 
 const PORT = process.env.PORT || 2020;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });
+module.exports = server;
+//Technically we need another db and enviroment for the unitTest to be able to connect and disconnet after the test and not touch the data
+//to make it more simple we use this server for test too

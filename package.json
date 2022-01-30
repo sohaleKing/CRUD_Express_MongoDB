@@ -4,7 +4,8 @@
   "description": "Homeowners information CRUD microservice",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-dev": "nodemon server.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --forceExit"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,16 @@
     "body-parser-xml": "^2.0.3",
     "express": "^4.17.2",
     "mongoose": "^6.1.8"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.4.7",
+    "supertest": "^6.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
