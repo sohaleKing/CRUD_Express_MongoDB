@@ -1,9 +1,24 @@
 const db = require("../models");
 const Owner = db.ownerInfo;
+const axios = require("axios");
+const API_KEY = "AIzaSyDbbcB3HL0S0h_nEcCdC97GEqkKv78iakU"; //put your own google API key please
 
 //methods - tools
 const getAge = (birthDate) =>
   Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e10);
+
+const getCoordinates = async (address) => {
+  try {
+    return await axios.get(
+      "https://maps.google.com/maps/api/geocode/json?address=" +
+        address +
+        "&key=" +
+        API_KEY
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // Create
 exports.create = (req, res) => {
@@ -19,7 +34,15 @@ exports.create = (req, res) => {
     name: item.name,
     dob: item.dob,
     age: getAge(item.dob),
-    coordinates: item.coordinates,
+    // coordinates: getCoordinates(item.address)
+    //   .then((response) => {
+    //     if (!response.data.error_message) {
+    //       return response.data.results[0].geometry.location;
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   }),
   });
 
   // Save in the database
@@ -45,6 +68,15 @@ exports.createBulk = (req, res) => {
       return;
     }
     item.age = getAge(item.dob);
+    // item.coordinates =  getCoordinates(item.address)
+    //   .then((response) => {
+    //     if (!response.data.error_message) {
+    //       return response.data.results[0].geometry.location;
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   })
     return item;
   });
 

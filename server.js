@@ -1,14 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 require("body-parser-xml")(bodyParser);
-const cors = require("cors");
 
 const app = express();
-const corsOpt = {
-  origin: "http://localhost:2021",
-};
-
-app.use(cors(corsOpt));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
