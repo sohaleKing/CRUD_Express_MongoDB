@@ -35,6 +35,31 @@ exports.create = (req, res) => {
     });
 };
 
+// Create Bulk- XML
+exports.createBulk = (req, res) => {
+  const items = req.body.root.homeowner;
+  const homeOwners = items.map((item) => {
+    // Validate request
+    if (!item.address) {
+      res.status(400).send({ message: "address can not be empty!" });
+      return;
+    }
+    item.age = getAge(item.dob);
+    return item;
+  });
+
+  // Save in the database
+  Owner.insertMany(homeOwners)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "error occurred while creating",
+      });
+    });
+};
+
 // Read
 exports.findOne = (req, res) => {
   const id = req.params.id;
@@ -119,7 +144,8 @@ exports.delete = (req, res) => {
 
 // Delete all
 exports.deleteAll = (req, res) => {
-  Owner.deleteMany({})
+  const ownersIds = req.body.ids;
+  Owner.deleteMany({ _id: { $in: ownersIds } })
     .then((data) => {
       res.send({
         message: `${data.deletedCount} Owners information were deleted successfully!`,

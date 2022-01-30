@@ -6,6 +6,9 @@ module.exports = (app) => {
   // Create
   router.post("/", homeowner.create);
 
+  // CreateBulk -XML
+  router.post("/createBulk", homeowner.createBulk);
+
   // Read
   router.get("/:id", homeowner.findOne);
 
